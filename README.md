@@ -1,0 +1,2 @@
+# swing_calc_for_education
+新入社員研修用の電卓アプリ作成用
