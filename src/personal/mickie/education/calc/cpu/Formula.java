@@ -3,13 +3,13 @@ package personal.mickie.education.calc.cpu;
 public class Formula {
 
 	public Formula() {
-		inputtedKey = Key.GetFromString("0");
+		inputtedKey = new ValueKeySequence();
 	}
 
-	private Key inputtedKey;
+	private ValueKeySequence inputtedKey;
 	
-	public Formula AddKey(Key getFromString) {
-		inputtedKey = getFromString;
+	public Formula AddKey(Key nextKey) {
+		inputtedKey.AddKey(nextKey);
 		return this;
 	}
 
