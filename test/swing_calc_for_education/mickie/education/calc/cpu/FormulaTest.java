@@ -26,6 +26,9 @@ public class FormulaTest {
 		formula = formula.AddKey(Key.GetFromString("1"));
 		assertEquals(formula.GetResult(), 1);
 		
+		// 追加で5を押したら15になる
+		formula = formula.AddKey(Key.GetFromString("5"));
+		assertEquals(formula.GetResult(), 15);
 	}
 
 }
