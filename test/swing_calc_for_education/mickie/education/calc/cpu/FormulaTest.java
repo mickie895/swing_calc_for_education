@@ -24,7 +24,7 @@ public class FormulaTest {
 		
 		// 1のキーを式に送信したら1を返す
 		formula = formula.AddKey(Key.GetFromString("1"));
-		assertEwuals(formula.GetResult(), 1);
+		assertEquals(formula.GetResult(), 1);
 		
 	}
 
