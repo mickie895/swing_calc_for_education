@@ -52,5 +52,15 @@ public class FormulaTest {
 		
 		assertEquals(formula.GetResult(), 15 * (int)(Math.pow(10, 7)));
 	}
+	
+	@Test
+	public void PlusKeyTest() {
+		try {
+			formula = formula.AddKey(Key.GetFromString("+"));
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+			fail();
+		}
+	}
 
 }
