@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValueKeySequence {
-	private List<Key> sequence = new ArrayList<Key>();
+	private List<ValueKey> sequence = new ArrayList<ValueKey>();
 
 	private static final int MAX_DIGIT = 9;
 
@@ -12,17 +12,18 @@ public class ValueKeySequence {
 	}
 
 	public void AddKey(Key nextKey) {
-		sequence.add(nextKey);
+		if (nextKey instanceof ValueKey)
+			sequence.add((ValueKey)nextKey);
 	}
 
 	public int GetValue() {
 		return CompileKeyValue().GetValue();
 	}
 
-	private Key CompileKeyValue() {
-		Key result = Key.InitiallizeKey();
+	private ValueKey CompileKeyValue() {
+		ValueKey result = ValueKey.InitiallizeKey();
 
-		for (Key key : sequence) {
+		for (ValueKey key : sequence) {
 			result = result.AddValueKey(key);
 		}
 
@@ -30,6 +31,10 @@ public class ValueKeySequence {
 	}
 
 	public boolean CanAdd(Key nextKey) {
-		return (CompileKeyValue().DigitLength() + nextKey.DigitLength()) <= MAX_DIGIT;
+		if (!nextKey.IsValues()) {
+			return false;
+		}
+		
+		return (CompileKeyValue().GetLength() + nextKey.GetLength()) <= MAX_DIGIT;
 	}
 }

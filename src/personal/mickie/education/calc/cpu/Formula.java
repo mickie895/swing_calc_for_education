@@ -8,14 +8,28 @@ public class Formula {
 		inputtedKey = new ValueKeySequence();
 	}
 
+	// 第一項
 	private ValueKeySequence inputtedKey;
 	
-	public Formula AddKey(Key nextKey) throws KeyOperateFailedException {
-		if (!inputtedKey.CanAdd(nextKey)) {
+	// 記号
+	private SignalKey signals;
+	
+	// 第二項(後で)
+	
+	public Formula AddKey(Key key) throws KeyOperateFailedException {
+		return AddValueKey(key);
+	}
+
+	private Formula AddValueKey(Key key) throws KeyOperateFailedException {
+		if (!inputtedKey.CanAdd(key)) {
 			throw KeyOperateFailedException.NotEnoughDigitException();
 		}
 		
-		inputtedKey.AddKey(nextKey);
+		inputtedKey.AddKey(key);
+		return this;
+	}
+	
+	private Formula AddSignalKey(Key key) {
 		return this;
 	}
 
