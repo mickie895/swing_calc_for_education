@@ -7,16 +7,16 @@ public abstract class Key {
 	private static final Pattern ValueDigitPattern = Pattern.compile("\\d*");
 	private static final String DotSymbol = ".";
 
-	public static Key GetFromString(String keyString) {
+	public static Key createFromString(String keyString) {
 		if (keyString.equals(DotSymbol)) {
 			throw new UnsupportedOperationException("小数点は今の所未実装。");
 		}
 		
 		if (ValueDigitPattern.matcher(keyString).matches()) {
-			return ValueKey.GetFromString(keyString);
+			return ValueKey.createNewValueKey(keyString);
 		}
 		
-		return null;
+		return SignalKey.createNewSignalKey(keyString);
 	}
 
 	public static Key InitiallizeKey() {
@@ -27,10 +27,6 @@ public abstract class Key {
 
 	public int GetLength() {
 		return 0;
-	}
-	
-	public Key() {
-		super();
 	}
 
 }

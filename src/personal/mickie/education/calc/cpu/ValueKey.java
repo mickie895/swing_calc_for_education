@@ -4,7 +4,7 @@ package personal.mickie.education.calc.cpu;
 
 public class ValueKey extends Key {
 
-	public static ValueKey GetFromString(String keyString) {
+	public static ValueKey createNewValueKey(String keyString) {
 		int keyValue = Integer.valueOf(keyString);
 		ValueKey result = new ValueKey(keyValue, keyString.length());
 		return result;
@@ -38,6 +38,7 @@ public class ValueKey extends Key {
 		return value;
 	}
 	
+	@Override
 	public int GetLength() {
 		return keyLength;
 	}

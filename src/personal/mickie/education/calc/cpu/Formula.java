@@ -17,7 +17,9 @@ public class Formula {
 	// 第二項(後で)
 	
 	public Formula AddKey(Key key) throws KeyOperateFailedException {
-		return AddValueKey(key);
+		if (key.IsValues())
+			return AddValueKey(key);
+		return AddSignalKey(key);
 	}
 
 	private Formula AddValueKey(Key key) throws KeyOperateFailedException {
@@ -30,6 +32,9 @@ public class Formula {
 	}
 	
 	private Formula AddSignalKey(Key key) {
+		if (key instanceof SignalKey)
+			signals = (SignalKey) key;
+			
 		return this;
 	}
 
