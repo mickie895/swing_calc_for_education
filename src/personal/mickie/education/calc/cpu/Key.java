@@ -1,46 +1,32 @@
 package personal.mickie.education.calc.cpu;
 
-public class Key {
+import java.util.regex.Pattern;
 
-	public static Key GetFromString(String keyString) {
-		int keyValue = Integer.valueOf(keyString);
-		Key result = new Key(keyValue, keyString.length());
-		return result;
+public abstract class Key {
+
+	private static final Pattern ValueDigitPattern = Pattern.compile("\\d*");
+	private static final String DotSymbol = ".";
+
+	public static Key createFromString(String keyString) {
+		if (keyString.equals(DotSymbol)) {
+			throw new UnsupportedOperationException("小数点は今の所未実装。");
+		}
+		
+		if (ValueDigitPattern.matcher(keyString).matches()) {
+			return ValueKey.createNewValueKey(keyString);
+		}
+		
+		return SignalKey.createNewSignalKey(keyString);
 	}
-	
+
 	public static Key InitiallizeKey() {
-		return new Key(0, 0);
+		return ValueKey.InitiallizeKey();
 	}
 	
-	private int value = 0;
-	private int keyLength = 0;
+	public abstract boolean IsValues();
 
-	private Key(int initialValue, int keyStringLength) {
-		value = initialValue;
-		keyLength = keyStringLength;
-	}
-	
-	private Key(Key source, Key append) {
-		value = source.value;
-		for (int digits = 0; digits < append.keyLength; digits++)
-			value *= 10;
-		value += append.value;
-		
-		if (source.GetValue() != 0) 
-			keyLength = source.keyLength;
-		
-		keyLength += append.keyLength;
+	public int GetLength() {
+		return 0;
 	}
 
-	public int GetValue() {
-		return value;
-	}
-	
-	public int DigitLength() {
-		return keyLength;
-	}
-
-	public Key AddValueKey(Key key) {
-		return new Key(this, key);
-	}
 }
