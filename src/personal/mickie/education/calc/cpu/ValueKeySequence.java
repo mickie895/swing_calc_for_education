@@ -11,16 +11,20 @@ public class ValueKeySequence {
 	public ValueKeySequence() {
 	}
 
-	public void AddKey(Key nextKey) {
+	public void addKey(Key nextKey) {
 		if (nextKey instanceof ValueKey)
 			sequence.add((ValueKey)nextKey);
 	}
 
-	public int GetValue() {
-		return CompileKeyValue().GetValue();
+	public int getValue() {
+		return compileKeyValue().GetValue();
+	}
+	
+	public boolean hasValue() {
+		return sequence.size() > 0;
 	}
 
-	private ValueKey CompileKeyValue() {
+	private ValueKey compileKeyValue() {
 		ValueKey result = ValueKey.InitiallizeKey();
 
 		for (ValueKey key : sequence) {
@@ -30,11 +34,11 @@ public class ValueKeySequence {
 		return result;
 	}
 
-	public boolean CanAdd(Key nextKey) {
-		if (!nextKey.IsValues()) {
+	public boolean canAdd(Key nextKey) {
+		if (!nextKey.isValues()) {
 			return false;
 		}
 		
-		return (CompileKeyValue().GetLength() + nextKey.GetLength()) <= MAX_DIGIT;
+		return (compileKeyValue().GetLength() + nextKey.GetLength()) <= MAX_DIGIT;
 	}
 }

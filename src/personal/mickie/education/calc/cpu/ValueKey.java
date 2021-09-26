@@ -48,7 +48,7 @@ public class ValueKey extends Key {
 	}
 
 	@Override
-	public boolean IsValues() {
+	public boolean isValues() {
 		return true;
 	}
 }

@@ -5,41 +5,52 @@ import personal.mickie.education.calc.cpu.exception.KeyOperateFailedException;
 public class Formula {
 
 	public Formula() {
-		inputtedKey = new ValueKeySequence();
+		firstTerm = new ValueKeySequence();
+		lastTerm = new ValueKeySequence();
 	}
 
 	// 第一項
-	private ValueKeySequence inputtedKey;
+	private ValueKeySequence firstTerm;
 	
 	// 記号
 	private SignalKey signals;
-	
+
 	// 第二項(後で)
+	private ValueKeySequence lastTerm;
 	
-	public Formula AddKey(Key key) throws KeyOperateFailedException {
-		if (key.IsValues())
-			return AddValueKey(key);
-		return AddSignalKey(key);
+	public Formula addKey(Key key) throws KeyOperateFailedException {
+		if (key.isValues())
+			return addValueKey(key);
+		return addSignalKey(key);
 	}
 
-	private Formula AddValueKey(Key key) throws KeyOperateFailedException {
-		if (!inputtedKey.CanAdd(key)) {
+	private Formula addValueKey(Key key) throws KeyOperateFailedException {
+		ValueKeySequence addTarget = firstTerm;
+		
+		if (signals != null) {
+			addTarget = lastTerm;
+		}
+		
+		if (!addTarget.canAdd(key)) {
 			throw KeyOperateFailedException.NotEnoughDigitException();
 		}
 		
-		inputtedKey.AddKey(key);
+		addTarget.addKey(key);
 		return this;
 	}
 	
-	private Formula AddSignalKey(Key key) {
+	private Formula addSignalKey(Key key) {
 		if (key instanceof SignalKey)
 			signals = (SignalKey) key;
 			
 		return this;
 	}
 
-	public int GetResult() {
-		return inputtedKey.GetValue();
+	public int getResult() {
+		if (lastTerm.hasValue())
+			return lastTerm.getValue();
+		
+		return firstTerm.getValue();
 	}
 
 }

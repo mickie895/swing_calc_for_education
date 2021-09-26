@@ -9,7 +9,7 @@ public class SignalKey extends Key {
 	String singal;
 	
 	@Override
-	public boolean IsValues() {
+	public boolean isValues() {
 		return false;
 	}
 
