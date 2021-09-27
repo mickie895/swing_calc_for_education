@@ -2,11 +2,16 @@ package personal.mickie.education.calc.cpu;
 
 public class SignalKey extends Key {
 
+	private String signal;
+	
 	private SignalKey(String signal) {
-		this.singal = signal;
+		this.signal = signal;
 	}
 	
-	String singal;
+	public boolean hasNoOperate() {
+		return signal.equals("=");
+	}
+	
 	
 	@Override
 	public boolean isValues() {
@@ -14,8 +19,16 @@ public class SignalKey extends Key {
 	}
 
 	public static Key createNewSignalKey(String keyString) {
-		// TODO 自動生成されたメソッド・スタブ
 		return new SignalKey(keyString);
+	}
+	
+	public static Key getInitiallizeSignalKey() {
+		return new SignalKey("=");
+	}
+
+	public ValueKeySequence compireTerms(ValueKeySequence firstTerm, ValueKeySequence lastTerm) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 
 }

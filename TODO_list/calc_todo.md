@@ -20,6 +20,8 @@
   * [ ] 20/0=例外
 * [ ] Formula.AddKeyがValueKeySequence.AddKeyに一本化できそう
   * [ ] 多分四則演算実装時に自然に解消される
+* [ ] その他
+  * [ ] 123をValueKeyにしたものと、"123"をValueKeyにしたものが等価
 
 ## 後回し
 

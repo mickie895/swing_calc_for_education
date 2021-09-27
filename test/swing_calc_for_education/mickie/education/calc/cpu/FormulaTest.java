@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import personal.mickie.education.calc.cpu.Formula;
 import personal.mickie.education.calc.cpu.Key;
+import personal.mickie.education.calc.cpu.ValueKey;
 import personal.mickie.education.calc.cpu.exception.KeyOperateFailedException;
 
 public class FormulaTest {
@@ -88,5 +89,23 @@ public class FormulaTest {
 		}
 		
 		assertEquals(formula.getResult(), 234);
+		
+		try {
+			formula = formula.addKey(Key.createFromString("="));
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+			fail();
+		}
+		
+		assertEquals(formula.getResult(), 244);
 	}
+	
+	@Test
+	public void KeyCreateTest() {
+		ValueKey resultKey = ValueKey.fromResult(123);
+		ValueKey stringKey = ValueKey.createNewValueKey("123");
+		
+		assertEquals(resultKey, stringKey);
+	}
+	
 }

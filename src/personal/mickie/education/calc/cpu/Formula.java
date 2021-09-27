@@ -7,6 +7,7 @@ public class Formula {
 	public Formula() {
 		firstTerm = new ValueKeySequence();
 		lastTerm = new ValueKeySequence();
+		signals = (SignalKey) SignalKey.getInitiallizeSignalKey();
 	}
 
 	// 第一項
@@ -15,14 +16,14 @@ public class Formula {
 	// 記号
 	private SignalKey signals;
 
-	// 第二項(後で)
+	// 第二項
 	private ValueKeySequence lastTerm;
 	
 	public Formula addKey(Key key) throws KeyOperateFailedException {
 		if (key.isValues())
 			return addValueKey(key);
 		if (lastTerm.hasValue()) {
-			
+			compileToFirstTerm();
 		}
 		return addSignalKey(key);
 	}
@@ -47,6 +48,10 @@ public class Formula {
 			signals = (SignalKey) key;
 			
 		return this;
+	}
+	
+	private void compileToFirstTerm() {
+		firstTerm = signals.compireTerms(firstTerm, lastTerm);
 	}
 
 	public int getResult() {
