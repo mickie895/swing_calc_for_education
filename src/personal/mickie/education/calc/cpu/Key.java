@@ -23,9 +23,9 @@ public abstract class Key {
 		return ValueKey.InitiallizeKey();
 	}
 	
-	public abstract boolean IsValues();
+	public abstract boolean isValues();
 
-	public int GetLength() {
+	public int getLength() {
 		return 0;
 	}
 

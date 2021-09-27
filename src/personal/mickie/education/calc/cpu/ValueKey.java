@@ -10,7 +10,7 @@ public class ValueKey extends Key {
 		return result;
 	}
 
-	public static ValueKey InitiallizeKey() {
+	public static ValueKey getInitiallizeValueKey() {
 		return new ValueKey(0, 0);
 	}
 	
@@ -28,27 +28,28 @@ public class ValueKey extends Key {
 			value *= 10;
 		value += append.value;
 		
-		if (source.GetValue() != 0) 
+		if (source.value != 0) 
 			keyLength = source.keyLength;
 		
 		keyLength += append.keyLength;
 	}
 
-	public int GetValue() {
+	public int getValue() {
 		return value;
 	}
 	
 	@Override
-	public int GetLength() {
+	public int getLength() {
 		return keyLength;
 	}
 
-	public ValueKey AddValueKey(ValueKey key) {
+	public ValueKey addValueKey(ValueKey key) {
 		return new ValueKey(this, key);
 	}
 
 	@Override
-	public boolean IsValues() {
+	public boolean isValues() {
 		return true;
 	}
+
 }
