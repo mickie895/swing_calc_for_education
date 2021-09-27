@@ -21,6 +21,9 @@ public class Formula {
 	public Formula addKey(Key key) throws KeyOperateFailedException {
 		if (key.isValues())
 			return addValueKey(key);
+		if (lastTerm.hasValue()) {
+			
+		}
 		return addSignalKey(key);
 	}
 

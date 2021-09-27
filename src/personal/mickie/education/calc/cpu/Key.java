@@ -25,7 +25,7 @@ public abstract class Key {
 	
 	public abstract boolean isValues();
 
-	public int GetLength() {
+	public int getLength() {
 		return 0;
 	}
 
