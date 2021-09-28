@@ -11,6 +11,10 @@ public class ValueKeySequence {
 	public ValueKeySequence() {
 	}
 
+	public ValueKeySequence(ValueKey startValueKey) {
+		sequence.add(startValueKey);
+	}
+
 	public void addKey(Key nextKey) {
 		if (!(nextKey instanceof ValueKey))
 			return;
@@ -26,7 +30,7 @@ public class ValueKeySequence {
 		return sequence.size() > 0;
 	}
 
-	private ValueKey compileKeyValue() {
+	public ValueKey compileKeyValue() {
 		ValueKey result = ValueKey.getInitiallizeValueKey();
 
 		for (ValueKey key : sequence) {

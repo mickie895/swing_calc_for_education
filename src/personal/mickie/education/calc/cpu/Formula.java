@@ -22,16 +22,18 @@ public class Formula {
 	public Formula addKey(Key key) throws KeyOperateFailedException {
 		if (key.isValues())
 			return addValueKey(key);
+		
 		if (lastTerm.hasValue()) {
 			compileToFirstTerm();
 		}
+		
 		return addSignalKey(key);
 	}
 
 	private Formula addValueKey(Key key) throws KeyOperateFailedException {
 		ValueKeySequence addTarget = firstTerm;
 		
-		if (signals != null) {
+		if ((signals != null) && (!signals.hasNoOperate())) {
 			addTarget = lastTerm;
 		}
 		
@@ -52,6 +54,7 @@ public class Formula {
 	
 	private void compileToFirstTerm() {
 		firstTerm = signals.compireTerms(firstTerm, lastTerm);
+		lastTerm = new ValueKeySequence();
 	}
 
 	public int getResult() {
