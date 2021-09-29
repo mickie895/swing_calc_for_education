@@ -98,6 +98,39 @@ public class FormulaTest {
 		}
 		
 		assertEquals(formula.getResult(), 244);
+		
+		try {
+			formula = formula.addKey(Key.createFromString("-"));
+			formula = formula.addKey(Key.createFromString("144"));
+			formula = formula.addKey(Key.createFromString("="));
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+			fail();
+		}
+		
+		assertEquals(formula.getResult(), 100);
+		
+		try {
+			formula = formula.addKey(Key.createFromString("/"));
+			formula = formula.addKey(Key.createFromString("50"));
+			formula = formula.addKey(Key.createFromString("="));
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+			fail();
+		}
+		
+		assertEquals(formula.getResult(), 2);
+		
+		try {
+			formula = formula.addKey(Key.createFromString("*"));
+			formula = formula.addKey(Key.createFromString("7"));
+			formula = formula.addKey(Key.createFromString("="));
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+			fail();
+		}
+		
+		assertEquals(formula.getResult(), 14);
 	}
 	
 	@Test
