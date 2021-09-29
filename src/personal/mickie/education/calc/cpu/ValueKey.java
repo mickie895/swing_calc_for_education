@@ -14,6 +14,18 @@ public class ValueKey extends Key {
 		return new ValueKey(0, 0);
 	}
 	
+	public static ValueKey fromResult(int rawValue) {
+		int resultKeyLength = 0;
+		int digitCheckValue = rawValue;
+		
+		while(digitCheckValue > 0) {
+			resultKeyLength++;
+			digitCheckValue /= 10;
+		}
+		
+		return new ValueKey(rawValue, resultKeyLength);
+	}
+	
 	private int value = 0;
 	private int keyLength = 0;
 
@@ -50,6 +62,15 @@ public class ValueKey extends Key {
 	@Override
 	public boolean isValues() {
 		return true;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof ValueKey))
+			return false;
+		ValueKey other = (ValueKey)obj;
+		
+		return value == other.value && keyLength == other.keyLength;
 	}
 
 }
