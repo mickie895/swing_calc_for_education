@@ -83,4 +83,4 @@ local.properties
 #.project
 
 # for personal use
-.ps1
+*.ps1
