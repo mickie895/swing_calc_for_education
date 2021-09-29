@@ -141,4 +141,21 @@ public class FormulaTest {
 		assertEquals(resultKey, stringKey);
 	}
 	
+	@Test
+	public void MultiSignalTest() {
+
+		try {
+			formula = formula.addKey(Key.createFromString("50"));
+			formula = formula.addKey(Key.createFromString("+"));
+			formula = formula.addKey(Key.createFromString("-"));
+			formula = formula.addKey(Key.createFromString("50"));
+			formula = formula.addKey(Key.createFromString("="));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			fail();
+		}
+		
+		assertEquals(formula.getResult(), 0);
+	}
+	
 }
