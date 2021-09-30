@@ -1,15 +1,15 @@
 package personal.mickie.education.calc.cpu;
 
-import personal.mickie.education.calc.cpu.signal.SignalWork;
+import personal.mickie.education.calc.cpu.signal.SignalItemSet;
 
 public class SignalKey extends Key {
 
 	private String signal;
-	private SignalWork work;
+	private SignalItemSet workSet;
 	
 	private SignalKey(String signal) {
 		this.signal = signal;
-		this.work = SignalWork.Factory.CreateSignalWork(signal);
+		this.workSet = SignalItemSet.Factory.getSignalWorksFromMap(signal);
 	}
 	
 	public boolean hasNoOperate() {
@@ -29,8 +29,8 @@ public class SignalKey extends Key {
 		return new SignalKey("=");
 	}
 
-	public ValueKeySequence compireTerms(ValueKeySequence firstTerm, ValueKeySequence lastTerm) {
-		return new ValueKeySequence(work.caluculate(firstTerm, lastTerm));
+	public ValueKeySequence compireTerms(ValueKeySequence firstTerm, ValueKeySequence lastTerm) throws Exception {
+		return new ValueKeySequence(workSet.caluculate(firstTerm, lastTerm));
 	}
 
 }
