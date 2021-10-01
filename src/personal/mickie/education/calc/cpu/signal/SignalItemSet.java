@@ -24,7 +24,7 @@ public class SignalItemSet {
 
 		// 計算前チェック方法
 		private static BiFunction<ValueKeySequence, ValueKeySequence, Exception> divCheck = (first, last) -> {
-			if (last.getValue() != 0) {
+			if (last.getValue() == 0) {
 				return new DividedByZeroException();
 			}
 			return null;
