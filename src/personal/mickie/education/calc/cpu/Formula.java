@@ -19,13 +19,9 @@ public class Formula {
 	// 第二項
 	private ValueKeySequence lastTerm;
 	
-	public Formula addKey(Key key) throws KeyOperateFailedException {
+	public Formula addKey(Key key) throws Exception {
 		if (key.isValues())
 			return addValueKey(key);
-		
-		if (lastTerm.hasValue()) {
-			compileToFirstTerm();
-		}
 		
 		return addSignalKey(key);
 	}
@@ -45,14 +41,18 @@ public class Formula {
 		return this;
 	}
 	
-	private Formula addSignalKey(Key key) {
+	private Formula addSignalKey(Key key) throws Exception {
+		if (lastTerm.hasValue()) {
+			compileToFirstTerm();
+		}
+		
 		if (key instanceof SignalKey)
 			signals = (SignalKey) key;
-			
+		
 		return this;
 	}
 	
-	private void compileToFirstTerm() {
+	private void compileToFirstTerm() throws Exception {
 		firstTerm = signals.compireTerms(firstTerm, lastTerm);
 		lastTerm = new ValueKeySequence();
 	}

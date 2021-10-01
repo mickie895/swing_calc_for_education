@@ -8,7 +8,7 @@ import org.junit.Test;
 import personal.mickie.education.calc.cpu.Formula;
 import personal.mickie.education.calc.cpu.Key;
 import personal.mickie.education.calc.cpu.ValueKey;
-import personal.mickie.education.calc.cpu.exception.KeyOperateFailedException;
+import personal.mickie.education.calc.cpu.exception.DividedByZeroException;
 
 public class FormulaTest {
 
@@ -27,7 +27,7 @@ public class FormulaTest {
 		// 1のキーを式に送信したら1を返す
 		try {
 			formula = formula.addKey(Key.createFromString("1"));
-		} catch (KeyOperateFailedException e) {
+		} catch (Exception e) {
 			// 例外は普通は出ない
 			fail();
 		}
@@ -36,7 +36,7 @@ public class FormulaTest {
 		// 追加で5を押したら15になる
 		try {
 			formula = formula.addKey(Key.createFromString("5"));
-		} catch (KeyOperateFailedException e) {
+		} catch (Exception e) {
 			// 例外は普通は出ない
 			fail();
 		}
@@ -46,7 +46,7 @@ public class FormulaTest {
 		for (int i = 0; i < 10; i++) {
 			try {
 				formula = formula.addKey(Key.createFromString("0"));
-			} catch (KeyOperateFailedException e) {
+			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
 		}
@@ -139,6 +139,42 @@ public class FormulaTest {
 		ValueKey stringKey = ValueKey.createNewValueKey("123");
 		
 		assertEquals(resultKey, stringKey);
+	}
+	
+	@Test
+	public void MultiSignalTest() {
+
+		try {
+			formula = formula.addKey(Key.createFromString("1"));
+			formula = formula.addKey(Key.createFromString("+"));
+			formula = formula.addKey(Key.createFromString("1"));
+			formula = formula.addKey(Key.createFromString("+"));
+			formula = formula.addKey(Key.createFromString("1"));
+			formula = formula.addKey(Key.createFromString("="));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			fail();
+		}
+		
+		assertEquals(formula.getResult(), 3);
+	}
+	
+	@Test
+	public void DivZeroTest() {
+		try {
+			formula = formula.addKey(Key.createFromString("123"));
+			formula = formula.addKey(Key.createFromString("/"));
+			formula = formula.addKey(Key.createFromString("0"));
+			formula = formula.addKey(Key.createFromString("="));
+			// ここで例外発生の予定
+			fail();
+		}catch (DividedByZeroException e) {
+			// ゼロ除算発生予定
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+			// それ以外は想定外
+			fail();
+		}
 	}
 	
 }
