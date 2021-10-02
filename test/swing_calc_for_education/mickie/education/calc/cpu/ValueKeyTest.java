@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import personal.mickie.education.calc.cpu.Formula;
 import personal.mickie.education.calc.cpu.Key;
+import personal.mickie.education.calc.cpu.ValueKey;
 import personal.mickie.education.calc.cpu.exception.KeyOperateFailedException;
 
 public class ValueKeyTest {
@@ -67,6 +68,13 @@ public class ValueKeyTest {
 		assertEquals(formula.getResult(), 15 * (int) (Math.pow(10, 7)));
 	
 	}
-	
+
+	@Test
+	public void KeyCreateTest() {
+		ValueKey resultKey = ValueKey.fromResult(123);
+		ValueKey stringKey = ValueKey.createNewValueKey("123");
+		
+		assertEquals(resultKey, stringKey);
+	}
 
 }
