@@ -22,7 +22,7 @@ public class ValueKeySequence {
 		sequence.add((ValueKey)nextKey);
 	}
 
-	public int getValue() {
+	public long getValue() {
 		return compileKeyValue().getValue();
 	}
 	

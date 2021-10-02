@@ -57,7 +57,7 @@ public class Formula {
 		lastTerm = new ValueKeySequence();
 	}
 
-	public int getResult() {
+	public long getResult() {
 		if (lastTerm.hasValue())
 			return lastTerm.getValue();
 		

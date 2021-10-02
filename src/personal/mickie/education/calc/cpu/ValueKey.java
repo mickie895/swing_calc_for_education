@@ -14,9 +14,9 @@ public class ValueKey extends Key {
 		return new ValueKey(0, 0);
 	}
 	
-	public static ValueKey fromResult(int rawValue) {
+	public static ValueKey fromResult(long rawValue) {
 		int resultKeyLength = 0;
-		int digitCheckValue = rawValue;
+		long digitCheckValue = rawValue;
 		
 		while(digitCheckValue > 0) {
 			resultKeyLength++;
@@ -26,10 +26,10 @@ public class ValueKey extends Key {
 		return new ValueKey(rawValue, resultKeyLength);
 	}
 	
-	private int value = 0;
+	private long value = 0;
 	private int keyLength = 0;
 
-	private ValueKey(int initialValue, int keyStringLength) {
+	private ValueKey(long initialValue, int keyStringLength) {
 		value = initialValue;
 		keyLength = keyStringLength;
 	}
@@ -46,7 +46,7 @@ public class ValueKey extends Key {
 		keyLength += append.keyLength;
 	}
 
-	public int getValue() {
+	public long getValue() {
 		return value;
 	}
 	

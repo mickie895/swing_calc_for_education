@@ -20,41 +20,6 @@ public class FormulaTest {
 	}
 
 	@Test
-	public void SimpleFormulatest() {
-		// 何も入れなければ0を返す
-		assertEquals(formula.getResult(), 0);
-
-		// 1のキーを式に送信したら1を返す
-		try {
-			formula = formula.addKey(Key.createFromString("1"));
-		} catch (Exception e) {
-			// 例外は普通は出ない
-			fail();
-		}
-		assertEquals(formula.getResult(), 1);
-
-		// 追加で5を押したら15になる
-		try {
-			formula = formula.addKey(Key.createFromString("5"));
-		} catch (Exception e) {
-			// 例外は普通は出ない
-			fail();
-		}
-		assertEquals(formula.getResult(), 15);
-
-		// 更に0を10回押したら150,000,000になる(9桁制限)
-		for (int i = 0; i < 10; i++) {
-			try {
-				formula = formula.addKey(Key.createFromString("0"));
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		
-		assertEquals(formula.getResult(), 15 * (int)(Math.pow(10, 7)));
-	}
-	
-	@Test
 	public void PlusKeyTest() {
 		try {
 			formula = formula.addKey(Key.createFromString("+"));
@@ -163,6 +128,7 @@ public class FormulaTest {
 	public void DivZeroTest() {
 		try {
 			formula = formula.addKey(Key.createFromString("123"));
+			formula = formula.addKey(Key.createFromString("+"));
 			formula = formula.addKey(Key.createFromString("/"));
 			formula = formula.addKey(Key.createFromString("0"));
 			formula = formula.addKey(Key.createFromString("="));
