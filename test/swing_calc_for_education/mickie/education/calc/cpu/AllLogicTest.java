@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ FormulaTest.class, ValueKeyTest.class })
+@SuiteClasses({ FormulaTest.class, ValueKeyTest.class, ValueKeySequenceTest.class })
 public class AllLogicTest {
 
 }
