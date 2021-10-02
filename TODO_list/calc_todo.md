@@ -10,7 +10,7 @@
     * [ ] マイナスは桁数に含めない
   * [ ] 10+/-→-10
   * [ ] 10+10=5+5=で10が表示される(一度計算に使った数値はロックされる)
-    * [ ] ValueKeySequence.addKeyの副作用を除去する
+    * [x] ValueKeySequence.addKeyの副作用を除去する
     * [ ] addKeyで新しくValueKeySequenceを作るLockedSequenceを実装する
 * [ ] 四則演算1
   * [x] +表示→0
@@ -36,6 +36,7 @@
 
 * [ ] KeyオブジェクトのGetValueがオブジェクト指向エクササイズの原則を逸脱している
   * [ ] 結果を数値ではなく文字で返す？
+* [ ] Formula.addValueKeyがリファクタリングができそうな作りになっている
 
 ## 最終的な目標
 
