@@ -6,7 +6,7 @@ import java.util.List;
 public class ValueKeySequence {
 	protected List<ValueKey> sequence = new ArrayList<ValueKey>();
 
-	private static final int MAX_DIGIT = 9;
+	protected static final int MAX_DIGIT = 9;
 
 	public ValueKeySequence() {
 	}

@@ -134,5 +134,26 @@ public class FormulaTest {
 			fail();
 		}
 	}
+	
+	@Test
+	public void LockedValueTest() {
+
+		try {
+			formula = formula.addKey(Key.createFromString("1"));
+			formula = formula.addKey(Key.createFromString("+"));
+			formula = formula.addKey(Key.createFromString("1"));
+			formula = formula.addKey(Key.createFromString("="));
+			formula = formula.addKey(Key.createFromString("5"));
+			// =キーを押したあとの数値は次に何か数値を入れたら消えるようにする。
+			assertEquals(formula.getResult(), 5);
+			formula = formula.addKey(Key.createFromString("+"));
+			formula = formula.addKey(Key.createFromString("5"));
+			formula = formula.addKey(Key.createFromString("="));
+			assertEquals(formula.getResult(), 10);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			fail();
+		}
+	}
 
 }

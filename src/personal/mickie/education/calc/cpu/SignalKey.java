@@ -30,7 +30,7 @@ public class SignalKey extends Key {
 	}
 
 	public ValueKeySequence compireTerms(ValueKeySequence firstTerm, ValueKeySequence lastTerm) throws Exception {
-		return new ValueKeySequence(workSet.caluculate(firstTerm, lastTerm));
+		return new LockedSequence(workSet.caluculate(firstTerm, lastTerm));
 	}
 
 }

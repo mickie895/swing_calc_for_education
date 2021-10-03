@@ -14,6 +14,7 @@ public class ValueKeySequenceTest {
 		ValueKeySequence firstKey = new ValueKeySequence();
 		ValueKeySequence secondKey = firstKey.addKey(Key.createFromString("1"));
 		
+		// 副作用を起こさないように毎回異なるインスタンスにする。
 		assertNotEquals(firstKey, secondKey);
 	}
 
