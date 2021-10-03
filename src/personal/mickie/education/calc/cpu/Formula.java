@@ -1,6 +1,8 @@
 package personal.mickie.education.calc.cpu;
 
 import personal.mickie.education.calc.cpu.exception.KeyOperateFailedException;
+import personal.mickie.education.calc.cpu.key.Key;
+import personal.mickie.education.calc.cpu.key.SignalKey;
 
 public class Formula {
 

@@ -6,9 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import personal.mickie.education.calc.cpu.Formula;
-import personal.mickie.education.calc.cpu.Key;
-import personal.mickie.education.calc.cpu.ValueKey;
 import personal.mickie.education.calc.cpu.exception.KeyOperateFailedException;
+import personal.mickie.education.calc.cpu.key.Key;
+import personal.mickie.education.calc.cpu.key.ValueKey;
 
 public class ValueKeyTest {
 

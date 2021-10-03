@@ -1,5 +1,7 @@
-package personal.mickie.education.calc.cpu;
+package personal.mickie.education.calc.cpu.key;
 
+import personal.mickie.education.calc.cpu.LockedSequence;
+import personal.mickie.education.calc.cpu.ValueKeySequence;
 import personal.mickie.education.calc.cpu.signal.SignalItemSet;
 
 public class SignalKey extends Key {

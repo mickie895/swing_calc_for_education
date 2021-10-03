@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import personal.mickie.education.calc.cpu.Key;
 import personal.mickie.education.calc.cpu.ValueKeySequence;
+import personal.mickie.education.calc.cpu.key.Key;
 
 public class ValueKeySequenceTest {
 

@@ -1,4 +1,4 @@
-package personal.mickie.education.calc.cpu;
+package personal.mickie.education.calc.cpu.key;
 
 
 
