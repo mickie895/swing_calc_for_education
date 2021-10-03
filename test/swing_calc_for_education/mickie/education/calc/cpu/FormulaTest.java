@@ -20,49 +20,14 @@ public class FormulaTest {
 	}
 
 	@Test
-	public void SimpleFormulatest() {
-		// 何も入れなければ0を返す
-		assertEquals(formula.getResult(), 0);
-
-		// 1のキーを式に送信したら1を返す
-		try {
-			formula = formula.addKey(Key.createFromString("1"));
-		} catch (Exception e) {
-			// 例外は普通は出ない
-			fail();
-		}
-		assertEquals(formula.getResult(), 1);
-
-		// 追加で5を押したら15になる
-		try {
-			formula = formula.addKey(Key.createFromString("5"));
-		} catch (Exception e) {
-			// 例外は普通は出ない
-			fail();
-		}
-		assertEquals(formula.getResult(), 15);
-
-		// 更に0を10回押したら150,000,000になる(9桁制限)
-		for (int i = 0; i < 10; i++) {
-			try {
-				formula = formula.addKey(Key.createFromString("0"));
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		
-		assertEquals(formula.getResult(), 15 * (int)(Math.pow(10, 7)));
-	}
-	
-	@Test
 	public void PlusKeyTest() {
 		try {
 			formula = formula.addKey(Key.createFromString("+"));
-		}catch (Exception e){
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			fail();
 		}
-		
+
 		assertEquals(formula.getResult(), 0);
 	}
 
@@ -72,75 +37,67 @@ public class FormulaTest {
 			formula = formula.addKey(Key.createFromString("1"));
 			formula = formula.addKey(Key.createFromString("0"));
 			formula = formula.addKey(Key.createFromString("+"));
-		}catch (Exception e){
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			fail();
 		}
-		
+
 		assertEquals(formula.getResult(), 10);
-		
+
 		try {
 			formula = formula.addKey(Key.createFromString("2"));
 			formula = formula.addKey(Key.createFromString("3"));
 			formula = formula.addKey(Key.createFromString("4"));
-		}catch (Exception e){
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			fail();
 		}
-		
+
 		assertEquals(formula.getResult(), 234);
-		
+
 		try {
 			formula = formula.addKey(Key.createFromString("="));
-		}catch (Exception e){
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			fail();
 		}
-		
+
 		assertEquals(formula.getResult(), 244);
-		
+
 		try {
 			formula = formula.addKey(Key.createFromString("-"));
 			formula = formula.addKey(Key.createFromString("144"));
 			formula = formula.addKey(Key.createFromString("="));
-		}catch (Exception e){
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			fail();
 		}
-		
+
 		assertEquals(formula.getResult(), 100);
-		
+
 		try {
 			formula = formula.addKey(Key.createFromString("/"));
 			formula = formula.addKey(Key.createFromString("50"));
 			formula = formula.addKey(Key.createFromString("="));
-		}catch (Exception e){
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			fail();
 		}
-		
+
 		assertEquals(formula.getResult(), 2);
-		
+
 		try {
 			formula = formula.addKey(Key.createFromString("*"));
 			formula = formula.addKey(Key.createFromString("7"));
 			formula = formula.addKey(Key.createFromString("="));
-		}catch (Exception e){
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			fail();
 		}
-		
+
 		assertEquals(formula.getResult(), 14);
 	}
-	
-	@Test
-	public void KeyCreateTest() {
-		ValueKey resultKey = ValueKey.fromResult(123);
-		ValueKey stringKey = ValueKey.createNewValueKey("123");
-		
-		assertEquals(resultKey, stringKey);
-	}
-	
+
 	@Test
 	public void MultiSignalTest() {
 
@@ -155,26 +112,48 @@ public class FormulaTest {
 			System.out.println(e.getMessage());
 			fail();
 		}
-		
+
 		assertEquals(formula.getResult(), 3);
 	}
-	
+
 	@Test
 	public void DivZeroTest() {
 		try {
 			formula = formula.addKey(Key.createFromString("123"));
+			formula = formula.addKey(Key.createFromString("+"));
 			formula = formula.addKey(Key.createFromString("/"));
 			formula = formula.addKey(Key.createFromString("0"));
 			formula = formula.addKey(Key.createFromString("="));
 			// ここで例外発生の予定
 			fail();
-		}catch (DividedByZeroException e) {
+		} catch (DividedByZeroException e) {
 			// ゼロ除算発生予定
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			// それ以外は想定外
 			fail();
 		}
 	}
 	
+	@Test
+	public void LockedValueTest() {
+
+		try {
+			formula = formula.addKey(Key.createFromString("1"));
+			formula = formula.addKey(Key.createFromString("+"));
+			formula = formula.addKey(Key.createFromString("1"));
+			formula = formula.addKey(Key.createFromString("="));
+			formula = formula.addKey(Key.createFromString("5"));
+			// =キーを押したあとの数値は次に何か数値を入れたら消えるようにする。
+			assertEquals(formula.getResult(), 5);
+			formula = formula.addKey(Key.createFromString("+"));
+			formula = formula.addKey(Key.createFromString("5"));
+			formula = formula.addKey(Key.createFromString("="));
+			assertEquals(formula.getResult(), 10);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			fail();
+		}
+	}
+
 }

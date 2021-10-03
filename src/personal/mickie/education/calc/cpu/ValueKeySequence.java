@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValueKeySequence {
-	private List<ValueKey> sequence = new ArrayList<ValueKey>();
+	protected List<ValueKey> sequence = new ArrayList<ValueKey>();
 
-	private static final int MAX_DIGIT = 9;
+	protected static final int MAX_DIGIT = 9;
 
 	public ValueKeySequence() {
 	}
@@ -14,18 +14,28 @@ public class ValueKeySequence {
 	public ValueKeySequence(ValueKey startValueKey) {
 		sequence.add(startValueKey);
 	}
-
-	public void addKey(Key nextKey) {
-		if (!(nextKey instanceof ValueKey))
-			return;
+	
+	private ValueKeySequence copyInstance() {
+		ValueKeySequence result = new ValueKeySequence();
+		result.sequence = new ArrayList<ValueKey>(sequence);
 		
-		sequence.add((ValueKey)nextKey);
+		return result;
 	}
 
-	public int getValue() {
+	public ValueKeySequence addKey(Key nextKey) {
+		if (!(nextKey instanceof ValueKey))
+			return this;
+
+		ValueKeySequence resultInstance = copyInstance();
+		
+		resultInstance.sequence.add((ValueKey) nextKey);
+		return resultInstance;
+	}
+
+	public long getValue() {
 		return compileKeyValue().getValue();
 	}
-	
+
 	public boolean hasValue() {
 		return sequence.size() > 0;
 	}
@@ -44,7 +54,7 @@ public class ValueKeySequence {
 		if (!nextKey.isValues()) {
 			return false;
 		}
-		
+
 		return (compileKeyValue().getLength() + nextKey.getLength()) <= MAX_DIGIT;
 	}
 }
