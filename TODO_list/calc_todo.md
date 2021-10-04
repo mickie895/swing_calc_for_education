@@ -12,9 +12,9 @@
   * [x] 10+10=5+5=で10が表示される(一度計算に使った数値はロックされる)
     * [x] ValueKeySequence.addKeyの副作用を除去する
     * [x] addKeyで新しくValueKeySequenceを作るLockedSequenceを実装する
-* [ ] クリア機能
-  * [ ] 1+2CE20=→21
-  * [ ] 1+2C20=→20
+* [x] クリア機能
+  * [x] 1+2CE20=→21
+  * [x] 1+2C20=→20
 
 ## 後回し
 

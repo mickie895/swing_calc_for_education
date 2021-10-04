@@ -15,7 +15,7 @@ public class LockedSequence extends ValueKeySequence {
 
 	@Override
 	public boolean canAdd(Key nextKey) {
-		if (!nextKey.isValues()) {
+		if (!(nextKey instanceof ValueKey)) {
 			return false;
 		}
 

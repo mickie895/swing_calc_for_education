@@ -51,6 +51,12 @@ public class ValueKey extends Key {
 	}
 	
 	@Override
+	public String getKeyString() {
+		// TODO 自動生成されたメソッド・スタブ
+		return Long.toString(value);
+	}
+	
+	@Override
 	public int getLength() {
 		return keyLength;
 	}
@@ -59,11 +65,6 @@ public class ValueKey extends Key {
 		return new ValueKey(this, key);
 	}
 
-	@Override
-	public boolean isValues() {
-		return true;
-	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof ValueKey))

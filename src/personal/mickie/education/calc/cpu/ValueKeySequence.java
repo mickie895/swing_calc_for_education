@@ -54,7 +54,7 @@ public class ValueKeySequence {
 	}
 
 	public boolean canAdd(Key nextKey) {
-		if (!nextKey.isValues()) {
+		if (!(nextKey instanceof ValueKey)) {
 			return false;
 		}
 
