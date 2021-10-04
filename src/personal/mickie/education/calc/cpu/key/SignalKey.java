@@ -1,5 +1,7 @@
-package personal.mickie.education.calc.cpu;
+package personal.mickie.education.calc.cpu.key;
 
+import personal.mickie.education.calc.cpu.LockedSequence;
+import personal.mickie.education.calc.cpu.ValueKeySequence;
 import personal.mickie.education.calc.cpu.signal.SignalItemSet;
 
 public class SignalKey extends Key {
@@ -15,11 +17,6 @@ public class SignalKey extends Key {
 	public boolean hasNoOperate() {
 		return signal.equals("=");
 	}
-	
-	@Override
-	public boolean isValues() {
-		return false;
-	}
 
 	public static Key createNewSignalKey(String keyString) {
 		return new SignalKey(keyString);
@@ -33,4 +30,8 @@ public class SignalKey extends Key {
 		return new LockedSequence(workSet.caluculate(firstTerm, lastTerm));
 	}
 
+	@Override
+	public String getKeyString() {
+		return signal;
+	}
 }

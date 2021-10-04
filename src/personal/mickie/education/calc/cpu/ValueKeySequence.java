@@ -3,6 +3,9 @@ package personal.mickie.education.calc.cpu;
 import java.util.ArrayList;
 import java.util.List;
 
+import personal.mickie.education.calc.cpu.key.Key;
+import personal.mickie.education.calc.cpu.key.ValueKey;
+
 public class ValueKeySequence {
 	protected List<ValueKey> sequence = new ArrayList<ValueKey>();
 
@@ -51,7 +54,7 @@ public class ValueKeySequence {
 	}
 
 	public boolean canAdd(Key nextKey) {
-		if (!nextKey.isValues()) {
+		if (!(nextKey instanceof ValueKey)) {
 			return false;
 		}
 

@@ -3,9 +3,9 @@ package personal.mickie.education.calc.cpu.signal;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-import personal.mickie.education.calc.cpu.ValueKey;
 import personal.mickie.education.calc.cpu.ValueKeySequence;
 import personal.mickie.education.calc.cpu.exception.DividedByZeroException;
+import personal.mickie.education.calc.cpu.key.ValueKey;
 
 public class SignalItemSet {
 

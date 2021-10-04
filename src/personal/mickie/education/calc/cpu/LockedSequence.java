@@ -1,5 +1,8 @@
 package personal.mickie.education.calc.cpu;
 
+import personal.mickie.education.calc.cpu.key.Key;
+import personal.mickie.education.calc.cpu.key.ValueKey;
+
 public class LockedSequence extends ValueKeySequence {
 	public LockedSequence(ValueKey lockTarget) {
 		super(lockTarget);
@@ -12,7 +15,7 @@ public class LockedSequence extends ValueKeySequence {
 
 	@Override
 	public boolean canAdd(Key nextKey) {
-		if (!nextKey.isValues()) {
+		if (!(nextKey instanceof ValueKey)) {
 			return false;
 		}
 

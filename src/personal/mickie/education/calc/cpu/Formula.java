@@ -1,6 +1,10 @@
 package personal.mickie.education.calc.cpu;
 
 import personal.mickie.education.calc.cpu.exception.KeyOperateFailedException;
+import personal.mickie.education.calc.cpu.key.ClearKey;
+import personal.mickie.education.calc.cpu.key.Key;
+import personal.mickie.education.calc.cpu.key.SignalKey;
+import personal.mickie.education.calc.cpu.key.ValueKey;
 
 public class Formula {
 
@@ -26,10 +30,29 @@ public class Formula {
 	private ValueKeySequence lastTerm;
 
 	public Formula addKey(Key key) throws Exception {
-		if (key.isValues())
+		if (key instanceof ValueKey)
 			return addValueKey(key);
 
+		if (key instanceof ClearKey)
+			return clearFormula(key);
+
 		return addSignalKey(key);
+	}
+
+	private Formula clearFormula(Key key) {
+		if (!(key instanceof ClearKey)) {
+			return this;
+		}
+
+		if (key.getKeyString().equals("C")) {
+			return new Formula();
+		}
+
+		if (canAddToFirstTerm()) {
+			return new Formula();
+		}
+
+		return new Formula(this.firstTerm, new ValueKeySequence(), this.signals);
 	}
 
 	private Formula addValueKey(Key key) throws KeyOperateFailedException {
