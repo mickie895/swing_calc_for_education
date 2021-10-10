@@ -1,10 +1,11 @@
 package personal.mickie.education.calc.cpu;
 
+import personal.mickie.education.calc.cpu.exception.FormulaException;
 import personal.mickie.education.calc.cpu.exception.KeyOperateFailedException;
 import personal.mickie.education.calc.cpu.key.ClearKey;
+import personal.mickie.education.calc.cpu.key.IAddableValueKey;
 import personal.mickie.education.calc.cpu.key.Key;
 import personal.mickie.education.calc.cpu.key.SignalKey;
-import personal.mickie.education.calc.cpu.key.ValueKey;
 
 public class Formula {
 
@@ -20,6 +21,10 @@ public class Formula {
 		this.signals = signals;
 	}
 
+	private Formula copyInstance() {
+		return new Formula(firstTerm, lastTerm, signals);
+	}
+	
 	// 第一項
 	private ValueKeySequence firstTerm;
 
@@ -29,8 +34,8 @@ public class Formula {
 	// 第二項
 	private ValueKeySequence lastTerm;
 
-	public Formula addKey(Key key) throws Exception {
-		if (key instanceof ValueKey)
+	public Formula addKey(Key key) throws FormulaException {
+		if (key instanceof IAddableValueKey)
 			return addValueKey(key);
 
 		if (key instanceof ClearKey)
@@ -44,6 +49,10 @@ public class Formula {
 			return this;
 		}
 
+		if (key.getKeyString().equals("←")) {
+			return backSpaseFormula();
+		}
+		
 		if (key.getKeyString().equals("C")) {
 			return new Formula();
 		}
@@ -53,6 +62,23 @@ public class Formula {
 		}
 
 		return new Formula(this.firstTerm, new ValueKeySequence(), this.signals);
+	}
+	
+	private Formula backSpaseFormula() {
+		Formula result = copyInstance();
+		
+		if (canAddToFirstTerm()) {
+			result.firstTerm = firstTerm.removeLast();
+			return result;
+		}
+		
+		if (lastTerm.hasValue()) {
+			result.lastTerm = lastTerm.removeLast();
+			return result;
+		}
+		
+		result.signals = (SignalKey) SignalKey.getInitiallizeSignalKey();
+		return result;
 	}
 
 	private Formula addValueKey(Key key) throws KeyOperateFailedException {
@@ -77,7 +103,7 @@ public class Formula {
 		return (signals == null) || (signals.hasNoOperate());
 	}
 
-	private Formula addSignalKey(Key key) throws Exception {
+	private Formula addSignalKey(Key key) throws FormulaException {
 		if (lastTerm.hasValue()) {
 			compileToFirstTerm();
 		}
@@ -88,7 +114,7 @@ public class Formula {
 		return this;
 	}
 
-	private void compileToFirstTerm() throws Exception {
+	private void compileToFirstTerm() throws FormulaException {
 		firstTerm = signals.compireTerms(firstTerm, lastTerm);
 		lastTerm = new ValueKeySequence();
 	}

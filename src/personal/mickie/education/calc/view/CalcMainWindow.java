@@ -4,8 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import personal.mickie.education.calc.cpu.Formula;
+import personal.mickie.education.calc.cpu.exception.FormulaException;
+import personal.mickie.education.calc.cpu.exception.IStopCalculationException;
+import personal.mickie.education.calc.cpu.key.Key;
+
 import javax.swing.JTextField;
 import java.awt.GridLayout;
 import javax.swing.JButton;
@@ -31,6 +38,8 @@ public class CalcMainWindow extends JFrame implements ActionListener {
 			"1", "2", "3", "-", "←",
 			"+/-", "0", ".", "+", "=",
 			};
+	
+	private Formula formula;
 
 	/**
 	 * Launch the application.
@@ -85,6 +94,8 @@ public class CalcMainWindow extends JFrame implements ActionListener {
 				panel.add(calcButtons[buttonIndex], r, c);
 			}
 		}
+		
+		formula = new Formula();
 	}
 	
 	@Override
@@ -93,7 +104,17 @@ public class CalcMainWindow extends JFrame implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		String inputButtonCommand = e.getActionCommand();
-		digitWindow.setText(inputButtonCommand);
+		try {
+			formula = formula.addKey(Key.createFromString(inputButtonCommand));
+		} catch (FormulaException e1) {
+			if (e1 instanceof IStopCalculationException) {
+				JOptionPane.showMessageDialog(contentPane, e1.getMessage());
+			}
+			else {
+				System.out.println(e1.getMessage());
+			}
+		}
+		digitWindow.setText(Long.toString(formula.getResult()));
 	}
 
 }

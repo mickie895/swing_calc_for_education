@@ -49,4 +49,27 @@ public class ClearItemTest {
 		}
 	}
 
+	@Test
+	public void BackKeyTest() {
+		try {
+			// backspace：最後に入力した文字を消すタイプ
+			formula = formula.addKey(Key.createFromString("1"));
+			formula = formula.addKey(Key.createFromString("00"));
+			formula = formula.addKey(Key.createFromString("←"));
+			assertEquals(1, formula.getResult());
+			formula = formula.addKey(Key.createFromString("+"));
+			formula = formula.addKey(Key.createFromString("42"));
+			formula = formula.addKey(Key.createFromString("←"));
+			formula = formula.addKey(Key.createFromString("←"));
+			assertEquals(1, formula.getResult());
+			formula = formula.addKey(Key.createFromString("0"));
+			formula = formula.addKey(Key.createFromString("+"));
+			formula = formula.addKey(Key.createFromString("22"));
+			formula = formula.addKey(Key.createFromString("="));
+			assertEquals(32, formula.getResult());
+		} catch (Exception e) {
+			fail();
+		}
+	}
+	
 }

@@ -1,6 +1,6 @@
 package personal.mickie.education.calc.cpu.exception;
 
-public class KeyOperateFailedException extends Exception {
+public class KeyOperateFailedException extends FormulaException {
 
 	/**
 	 * 

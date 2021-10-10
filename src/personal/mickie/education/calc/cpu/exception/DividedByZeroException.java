@@ -1,6 +1,6 @@
 package personal.mickie.education.calc.cpu.exception;
 
-public class DividedByZeroException extends Exception {
+public class DividedByZeroException extends FormulaException implements IStopCalculationException {
 	/**
 	 * 
 	 */

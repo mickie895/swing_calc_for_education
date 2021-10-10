@@ -2,6 +2,7 @@ package personal.mickie.education.calc.cpu.key;
 
 import personal.mickie.education.calc.cpu.LockedSequence;
 import personal.mickie.education.calc.cpu.ValueKeySequence;
+import personal.mickie.education.calc.cpu.exception.FormulaException;
 import personal.mickie.education.calc.cpu.signal.SignalItemSet;
 
 public class SignalKey extends Key {
@@ -26,7 +27,7 @@ public class SignalKey extends Key {
 		return new SignalKey("=");
 	}
 
-	public ValueKeySequence compireTerms(ValueKeySequence firstTerm, ValueKeySequence lastTerm) throws Exception {
+	public ValueKeySequence compireTerms(ValueKeySequence firstTerm, ValueKeySequence lastTerm) throws FormulaException {
 		return new LockedSequence(workSet.caluculate(firstTerm, lastTerm));
 	}
 

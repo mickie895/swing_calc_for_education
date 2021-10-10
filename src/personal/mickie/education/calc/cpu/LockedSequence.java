@@ -1,5 +1,6 @@
 package personal.mickie.education.calc.cpu;
 
+import personal.mickie.education.calc.cpu.key.IAddableValueKey;
 import personal.mickie.education.calc.cpu.key.Key;
 import personal.mickie.education.calc.cpu.key.ValueKey;
 
@@ -15,7 +16,7 @@ public class LockedSequence extends ValueKeySequence {
 
 	@Override
 	public boolean canAdd(Key nextKey) {
-		if (!(nextKey instanceof ValueKey)) {
+		if (!(nextKey instanceof IAddableValueKey)) {
 			return false;
 		}
 

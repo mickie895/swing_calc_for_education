@@ -4,9 +4,10 @@ import java.util.regex.Pattern;
 
 public abstract class Key {
 
-	private static final Pattern ClearkeyPattern = Pattern.compile("CE?");
+	private static final Pattern ClearkeyPattern = Pattern.compile("(CE?|←)");
 	private static final Pattern ValueDigitPattern = Pattern.compile("\\d*");
 	private static final String DotSymbol = ".";
+	private static final String ChangeSignalSymbol = "+/-";
 	
 	public abstract String getKeyString();
 
@@ -15,12 +16,16 @@ public abstract class Key {
 			throw new UnsupportedOperationException("小数点は今の所未実装。");
 		}
 		
+		if (keyString.equals(ChangeSignalSymbol)) {
+			return ValueSignalKey.CreateNewSignalKey(keyString);
+		}
+		
 		if (ClearkeyPattern.matcher(keyString).matches()) {
 			return ClearKey.createFromString(keyString);
 		}
 		
 		if (ValueDigitPattern.matcher(keyString).matches()) {
-			return ValueKey.createNewValueKey(keyString);
+			return ValueKey.fromResult(keyString);
 		}
 		
 		return SignalKey.createNewSignalKey(keyString);

@@ -5,13 +5,15 @@ import java.util.function.BiFunction;
 
 import personal.mickie.education.calc.cpu.ValueKeySequence;
 import personal.mickie.education.calc.cpu.exception.DividedByZeroException;
+import personal.mickie.education.calc.cpu.exception.FormulaException;
+import personal.mickie.education.calc.cpu.key.IAddableValueKey;
 import personal.mickie.education.calc.cpu.key.ValueKey;
 
 public class SignalItemSet {
 
 	public static class Factory{
 		
-		private static SignalItemSet CreateInstance(BiFunction<ValueKeySequence, ValueKeySequence, ValueKey> work, BiFunction<ValueKeySequence, ValueKeySequence, Exception> exception) {
+		private static SignalItemSet CreateInstance(BiFunction<ValueKeySequence, ValueKeySequence, ValueKey> work, BiFunction<ValueKeySequence, ValueKeySequence, FormulaException> exception) {
 			return new SignalItemSet(work, exception);
 		}
 
@@ -23,13 +25,13 @@ public class SignalItemSet {
 		private static BiFunction<ValueKeySequence, ValueKeySequence, ValueKey> emptyWork = (first, last) -> {return ValueKey.fromResult(first.getValue());};
 
 		// 計算前チェック方法
-		private static BiFunction<ValueKeySequence, ValueKeySequence, Exception> divCheck = (first, last) -> {
+		private static BiFunction<ValueKeySequence, ValueKeySequence, FormulaException> divCheck = (first, last) -> {
 			if (last.getValue() == 0) {
 				return new DividedByZeroException();
 			}
 			return null;
 		};
-		private static BiFunction<ValueKeySequence, ValueKeySequence, Exception> emptyCheck = (first, last) -> {return null;};
+		private static BiFunction<ValueKeySequence, ValueKeySequence, FormulaException> emptyCheck = (first, last) -> {return null;};
 		
 		// 計算の種類
 		private static final Map<String, SignalItemSet> cachedSet = 
@@ -48,16 +50,16 @@ public class SignalItemSet {
 	}
 	
 	private SignalItemSet(BiFunction<ValueKeySequence, ValueKeySequence, ValueKey> workFunction,
-			BiFunction<ValueKeySequence, ValueKeySequence, Exception> checkExceptionFunction) {
+			BiFunction<ValueKeySequence, ValueKeySequence, FormulaException> checkExceptionFunction) {
 		this.workFunction = workFunction;
 		this.checkExceptionFunction = checkExceptionFunction;
 	}
 
 	private BiFunction<ValueKeySequence, ValueKeySequence, ValueKey> workFunction;
-	private BiFunction<ValueKeySequence, ValueKeySequence, Exception> checkExceptionFunction;
+	private BiFunction<ValueKeySequence, ValueKeySequence, FormulaException> checkExceptionFunction;
 	
-	public ValueKey caluculate( ValueKeySequence firstTerm, ValueKeySequence lastTerm ) throws Exception{
-		Exception possibleException = checkExceptionFunction.apply(firstTerm, lastTerm);
+	public ValueKey caluculate( ValueKeySequence firstTerm, ValueKeySequence lastTerm ) throws FormulaException{
+		FormulaException possibleException = checkExceptionFunction.apply(firstTerm, lastTerm);
 		if (possibleException != null) {
 			throw possibleException;
 		}

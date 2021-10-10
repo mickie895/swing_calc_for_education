@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import personal.mickie.education.calc.cpu.Formula;
 import personal.mickie.education.calc.cpu.exception.KeyOperateFailedException;
+import personal.mickie.education.calc.cpu.key.IAddableValueKey;
 import personal.mickie.education.calc.cpu.key.Key;
 import personal.mickie.education.calc.cpu.key.ValueKey;
 
@@ -71,8 +72,8 @@ public class ValueKeyTest {
 
 	@Test
 	public void KeyCreateTest() {
-		ValueKey resultKey = ValueKey.fromResult(123);
-		ValueKey stringKey = ValueKey.createNewValueKey("123");
+		IAddableValueKey resultKey = ValueKey.fromResult(123);
+		IAddableValueKey stringKey = ValueKey.fromResult("123");
 		
 		assertEquals(resultKey, stringKey);
 	}
